@@ -13,22 +13,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.example.singlemicroservicewithmultidbservers.authorDb"},
+@EnableJpaRepositories(basePackages = {"com.example.singlemicroservicewithmultidbservers.personDb"},
         entityManagerFactoryRef = "getAuthorEM")
-public class AuthorDbConfig {
+public class PersonDbConfig {
     @Bean
     @ConfigurationProperties(
-            prefix = "spring.authords"
-    )
-    public DataSource getAuthorDsource() {
+            prefix = "spring.personds"
+    )public DataSource getPersonDsource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean getAuthorEM() {
+    public LocalContainerEntityManagerFactoryBean getPersonEM(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(getAuthorDsource());
-        em.setPackagesToScan("com.example.demo.authorDb");
+        em.setDataSource(getPersonDsource());
+        em.setPackagesToScan("com.example.demo.personDb");
 
         Map<String,Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto" , "create ");
